@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الصفحة الرئيسية</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #000; /* خلفية سوداء */
+            color: #0F0; /* لون الأكواد */
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* الأكواد المشفرة */
+        .background-codes {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.15;
+        }
+
+        .background-codes pre {
+            margin: 0;
+            padding: 0;
+            font-family: monospace;
+            color: #0F0;
+            white-space: pre-wrap;
+            line-height: 1.5;
+        }
+
+        header {
+            background: #1f2a38;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        .content {
+            padding-top: 100px;
+            text-align: center;
+        }
+
+        /* إعداد الكرة الأرضية */
+        .globe-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 600px;
+            position: relative;
+        }
+
+        footer {
+            background: #1f2a38;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <nav>
+        <a href="#">الرئيسية</a>
+        <a href="#">الخدمات</a>
+        <a href="#">تواصل معنا</a>
+    </nav>
+</header>
+
+<div class="content">
+    <section id="home">
+        <h1>TechServicesPro</h1>
+    </section>
+
+    <!-- قسم الكرة الأرضية ثلاثية الأبعاد -->
+    <div class="globe-container">
+        <canvas id="globeCanvas"></canvas>
+    </div>
+</div>
+
+<footer>
+    <p>TechServicesPro &copy; 2024</p>
+</footer>
+
+<!-- الأكواد المشفرة كخلفية -->
+<div class="background-codes">
+    <pre>
+        /* أكواد مشفرة */
+        function encryptData(data) {
+            return btoa(data);
+        }
+        function decryptData(data) {
+            return atob(data);
+        }
+        const secretCode = "007";
+        console.log(encryptData(secretCode));
+    </pre>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+    // إعدادات الكرة الأرضية باستخدام مكتبة Three.js
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('globeCanvas'), alpha: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+
+    // إضافة المجسم (الكرة الأرضية)
+    const geometry = new THREE.SphereGeometry(5, 64, 64);
+    const textureLoader = new THREE.TextureLoader();
+    const earthTexture = textureLoader.load('https://raw.githubusercontent.com/AmroAka7m3/earth-map/main/earthmap1k.jpg'); // خريطة الأرض
+    const earthMaterial = new THREE.MeshBasicMaterial({ map: earthTexture });
+    const globe = new THREE.Mesh(geometry, earthMaterial);
+    scene.add(globe);
+
+    // إعدادات الإضاءة
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
+    scene.add(ambientLight);
+
+    camera.position.z = 15;
+
+    // حركة دوران الكرة الأرضية
+    function animate() {
+        requestAnimationFrame(animate);
+        globe.rotation.y += 0.005;  // دوران الكرة الأرضية
+        renderer.render(scene, camera);
+    }
+    animate();
+
+    // ضبط حجم الـ canvas عند تغيير حجم النافذة
+    window.addEventListener('resize', () => {
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+    });
+</script>
+
+</body>
+</html>
