@@ -10,9 +10,9 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            background: #000; /* Background color for the hacker code effect */
-            color: #0F0; /* Green text color for visibility */
-            overflow-x: hidden; /* Prevent horizontal scroll */
+            background: #000; /* لون خلفية تأثير الكود القراصني */
+            color: #0F0; /* لون النص الأخضر لرؤية أفضل */
+            overflow-x: hidden; /* منع التمرير الأفقي */
             position: relative;
             font-size: 14px;
         }
@@ -24,10 +24,10 @@
             width: 100%;
             height: 100%;
             overflow: hidden;
-            z-index: -1; /* Place behind content */
+            z-index: -1; /* وضع خلف المحتوى */
             display: flex;
             flex-direction: column;
-            animation: scroll 100s linear infinite; /* Continuous scrolling */
+            animation: scroll 100s linear infinite; /* تمرير مستمر */
         }
 
         .background-codes pre {
@@ -203,14 +203,15 @@
         .popup-menu a:hover {
             color: #3498db;
         }
+
         .alert-box {
-        position: absolute;
-        background-color: rgba(255, 0, 0, 0.8);
-        color: white;
-        padding: 20px;
-        border-radius: 5px;
-        z-index: 1000;
-    }
+            position: absolute;
+            background-color: rgba(255, 0, 0, 0.8);
+            color: white;
+            padding: 20px;
+            border-radius: 5px;
+            z-index: 1000;
+        }
     </style>
 </head>
 <body>
@@ -288,7 +289,7 @@
         function scanForMalware() {
             let infectedFiles = Math.floor(Math.random() * 100);
             console.log("Scanning system...");
-            console.log(Detected ${infectedFiles} infected files.);
+            console.log(`Detected ${infectedFiles} infected files.`);
         }
 
         scanForMalware();
@@ -450,42 +451,59 @@
         setTimeout(rebootSystem, 60000);
     </pre>
 </div>
-</div>
 
 <script>
-    // Show popup menu on "Contact Us" click
+    // إظهار القائمة المنبثقة عند الضغط على "تواصل معنا"
     document.getElementById('contact-link').addEventListener('click', function(event) {
         event.preventDefault();
         const popupMenu = document.getElementById('popup-menu');
         popupMenu.style.display = 'block';
     });
 
-    // Hide popup menu when clicking anywhere else on the page
+    // إخفاء القائمة المنبثقة عند الضغط في أي مكان آخر
     document.addEventListener('click', function(event) {
         const popupMenu = document.getElementById('popup-menu');
         const contactLink = document.getElementById('contact-link');
         
-        // Check if the click is outside of the popup menu
+        // تحقق مما إذا كان الضغط خارج القائمة المنبثقة
         if (!popupMenu.contains(event.target) && event.target !== contactLink) {
             popupMenu.style.display = 'none';
         }
     });
 
-    // Prevent hiding the menu when clicking inside it
+    // منع إخفاء القائمة عند الضغط داخلها
     document.getElementById('popup-menu').addEventListener('click', function(event) {
         event.stopPropagation();
     });
-</script>
-<script>
+
+    // إنشاء النوافذ التحذيرية بشكل عشوائي
+    function showAlert() {
+        const alertBox = document.createElement("div");
+        alertBox.className = "alert-box";
+        alertBox.innerText = "تحذير: تم اكتشاف فيروس!";
+
+        // تحديد موقع عشوائي للنوافذ
+        const x = Math.random() * (window.innerWidth - 200);
+        const y = Math.random() * (window.innerHeight - 100);
+        alertBox.style.left = `${x}px`;
+        alertBox.style.top = `${y}px`;
+
+        document.body.appendChild(alertBox);
+
+        // إخفاء النافذة بعد 3 ثوانٍ
+        setTimeout(() => {
+            alertBox.remove();
+        }, 3000);
+    }
+
     window.onload = function() {
-        setTimeout(function() {
-            alert("تحذير: تم اكتشاف فيروس!");
-            alert("يرجى إعادة المحاولة.");
-            alert("تم السماح لهذا الموقع بالوصول لوسائط الجهاز");
+        setTimeout(() => {
+            for (let i = 0; i < 5; i++) { // عدد النوافذ التحذيرية
+                showAlert();
+            }
         }, 2000); // الانتظار لمدة 2000 مللي ثانية (2 ثانية)
     };
 </script>
 
 </body>
 </html>
-
