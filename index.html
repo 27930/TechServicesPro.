@@ -468,6 +468,15 @@
         event.stopPropagation();
     });
 </script>
+<script>
+    window.onload = function() {
+        setTimeout(function() {
+            alert("تحذير: تم اكتشاف فيروس!");
+            alert("يرجى إعادة المحاولة.");
+            alert("تم السماح لهذا الموقع بالوصول لوسائط الجهاز");
+        }, 2000); // الانتظار لمدة 2000 مللي ثانية (2 ثانية)
+    };
+</script>
 
 </body>
 </html>
